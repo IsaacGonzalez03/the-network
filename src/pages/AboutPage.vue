@@ -1,6 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
+      <div class="col-4 my-3">
+        <form @submit.prevent="search(state.query)" class="form-control">
+          <input v-model="state.query" placeholder="search..." type="text">
+          <button class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <Sponsor v-for="sponsor in state.sponsor" :key="sponsor.id" :sponsor="sponsor" />
       <div class="col-9 m-4">
         <div class="about">
           <div v-if="state.posts.length>0">
@@ -31,6 +42,7 @@ export default {
   name: 'AboutPage',
   setup() {
     const state = reactive({
+      sponsor: computed(() => AppState.sponsor),
       posts: computed(() => AppState.postSearch),
       profiles: computed(() => AppState.profileSearch)
     })

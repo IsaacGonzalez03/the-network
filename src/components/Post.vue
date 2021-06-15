@@ -1,21 +1,31 @@
 <template>
-  <div class="card">
-    <div class="float-right py-1 mb-2">
-      <i v-if="state.account.id === post.creatorId" @click="deletePost" class="fas fa-trash-alt text-danger float-right"></i>
-    </div>
-    <img :src="post.imgUrl" class="img-fluid rounded">
-    <div>
-      <p>
-        {{ post.body }}
-      </p>
-    </div>
-    <router-link :to="{name:'ProfilePage',params:{id: post.creatorId}}">
-      <div @click="setProfile(post.creatorId)">
-        <img :src="post.profilePic" class="img-fluid rounded-circle sm-img">
+  <div class="row card shadow my-1">
+    <div class="col">
+      <div title="delete" class="d-flex float-right p-2 m-2">
+        <i v-if="state.account.id === post.creatorId" @click="deletePost" class="fas fa-trash-alt text-danger float-right"></i>
       </div>
-    </router-link>
-    <div class="float-right">
-      <i class="far fa-star" @click="likePost"></i>{{ post.likes.length }}
+      <div>
+        <img :src="post.imgUrl" class="img-fluid w-100 rounded">
+      </div>
+      <div class="text-center my-1">
+        <p>
+          {{ post.body }}
+        </p>
+      </div>
+      <router-link :to="{name:'ProfilePage',params:{id: post.creatorId}}">
+        <div class="mx-1">
+          <span @click="setProfile(post.creatorId)">
+            <img :src="post.creator.picture" class="img-fluid rounded-circle sm-img">
+          </span>
+          <span class="mx-1">{{ post.creator.name }}</span>
+        </div>
+      </router-link>
+      <div class="">
+        <i class="float-right far fa-star mx-2" @click="likePost">{{ post.likes.length }}</i>
+      </div>
+      <div class="m-1 p-1 text-right">
+        {{ new Date(post.createdAt).toLocaleString('en', options) }}
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +60,11 @@ export default {
       },
       async likePost() {
         await postsService.likePost(props.post.id)
+      },
+      options: {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit'
       }
     }
   }
@@ -58,8 +73,17 @@ export default {
 
 <style scoped>
 .sm-img{
-  height: 2em;
-  width: 2em;
+  height: 4em;
+  width: 4em;
 }
-
+.star:hover{
+  text-decoration: none;
+  color: rgba(187, 135, 135, 0.8);
+  background: rgb(145, 92, 182);
+  padding: .5rem .5rem;
+  border-radius: .5rem,.5rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
 </style>

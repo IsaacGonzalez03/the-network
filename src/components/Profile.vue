@@ -1,9 +1,11 @@
 <template>
   <div class="Profile row justify-content-center p-3">
-    <div class="col-8">
-      <img :src="profile.picture" class="img-fluid rounded-circle">
+    <div class="col-5">
+      <div class="card">
+        <img :src="profile.picture" class="img-fluid rounded-circle">
+        <h4>{{ profile.name }}</h4>
+      </div>
     </div>
-    <h4>{{ profile.name }}</h4>
   </div>
 </template>
 

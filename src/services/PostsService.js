@@ -8,6 +8,14 @@ class PostsService {
     AppState.posts = res.data.posts
     AppState.older = res.data.older
     AppState.newer = res.data.newer
+    logger.log(res.data)
+  }
+
+  async next(url) {
+    const res = await api.get(url)
+    AppState.posts = res.data.posts
+    AppState.older = res.data.older
+    AppState.newer = res.data.newer
   }
 
   async getProfilePosts(id) {

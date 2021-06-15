@@ -1,12 +1,18 @@
 <template>
   <div class="ProfilePage container-fluid">
-    <div class="Profile row justify-content-center p-3">
-      <div class="col-8">
-        <img :src="activeProfile.picture" class="img-fluid rounded-circle">
+    <div class="Profile row p-3 justify-content-center">
+      <div class="col-4 card d-flex">
+        <img :src="activeProfile.picture" class="img-fluid rounded-circle m-2">
+        <h4 class="text-center m-1">
+          {{ activeProfile.name }}
+        </h4>
       </div>
-      <h4>{{ activeProfile.name }}</h4>
+      <div class="col-6">
+        <img :src="activeProfile.coverImg" class="img-fluid">
+      </div>
     </div>
     <Thread />
+    <Sponsor v-for="sponsor in state.sponsor" :key="sponsor.id" :sponsor="sponsor" />
   </div>
 </template>
 
@@ -24,6 +30,7 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
+      sponsor: computed(() => AppState.sponsor),
       older: computed(() => AppState.activeProfile.older),
       newer: computed(() => AppState.activeProfile.newer)
     })
@@ -37,9 +44,9 @@ export default {
     })
     return {
       state,
-      async next() {
+      async next(url) {
         try {
-          await postsService.getPosts()
+          await postsService.next(url)
         } catch (error) {
         }
       },

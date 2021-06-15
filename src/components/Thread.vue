@@ -1,9 +1,7 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-8">
       <Post v-for="post in posts" :key="post.id" :post="post" />
-    </div>
-    <div class="col-3">
     </div>
   </div>
 </template>

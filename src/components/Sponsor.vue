@@ -1,9 +1,7 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-6 card">
-      <div class="sponsor">
-        <img :src="sponsor.square" class="sponsor">
-      </div>
+    <div class="col-8 card">
+      <img :src="sponsor.banner" class="sponsor">
     </div>
   </div>
 </template>
@@ -25,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .sponsor{
-  min-height: 25vh;
-  min-width: 25vw;
+  min-height: 5vh;
+  min-width: 5vw;
 }
 </style>

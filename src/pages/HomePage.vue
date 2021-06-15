@@ -3,26 +3,38 @@
     <div class="row justify-content-center">
       <div class="col-4 my-3">
         <form @submit.prevent="search(state.query)" class="form-control">
-          <input v-model="state.query" type="text">
+          <input v-model="state.query" placeholder="search..." type="text">
           <button class="btn btn-primary">
             <i class="fas fa-search"></i>
           </button>
         </form>
       </div>
     </div>
-    <Sponsor v-for="sponsor in state.sponsor" :key="sponsor.id" :sponsor="sponsor" />
+    <!-- <div class="row justify-content-center my-3">
+      <div class="col-4">
+        <form @submit.prevent="search(state.query)" class="input-group mb-3">
+          <input v-model="state.query" type="text" class="form-control" placeholder="search...">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div> -->
     <CreatePost />
+    <Sponsor v-for="sponsor in state.sponsor" :key="sponsor.id" :sponsor="sponsor" />
     <div class="row justify-content-center">
       <div class="col-2">
-        <button class="btn-btn-primary my-2" v-if="state.newer" @click="next(state.newer)">
+        <button class="btn btn-primary m-2" v-if="state.older" @click="next(state.older)">
           Next Page
         </button>
-        <button class="btn btn-primary my-2" v-if="state.older" @click="next(state.older)">
+        <button class="btn btn-primary m-2" v-if="state.newer" @click="next(state.newer)">
           Previous Page
         </button>
       </div>
     </div>
-    <Thread />
+    <div>
+      <Thread />
+    </div>
   </div>
 </template>
 
@@ -50,9 +62,9 @@ export default {
     })
     return {
       state,
-      async next() {
+      async next(url) {
         try {
-          await postsService.getPosts()
+          await postsService.next(url)
         } catch (error) {
         }
       },
